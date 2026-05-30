@@ -1,0 +1,11 @@
+ immigration 网站项目结构：
+- index.html      → 首页（参考 aqyimin.com 风格）
+- about.html      → 关于我们
+- services.html   → 服务项目
+- cases.html      → 成功案例
+- contact.html    → 联系我们
+- admin.html      → 后台管理页面
+- admin-login.html→ 管理员登录
+- css/style.css   → 共享样式
+- js/data.js      → 数据管理（localStorage）
+- js/admin.js     → 后台管理逻辑

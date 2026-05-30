@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>移民博客 - 环球移民</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== 博客页面专属样式 ===== */
+
+/* 顶部横幅 - 更大气 */
+.blog-hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #fff;
+  padding: 120px 0 100px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.blog-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(184,138,61,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(184,138,61,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 60%);
+  animation: heroFloat 20s ease-in-out infinite;
+}
+@keyframes heroFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -30px) rotate(1deg); }
+  66% { transform: translate(-20px, 20px) rotate(-1deg); }
+}
+.blog-hero .container { position: relative; z-index: 1; }
+.blog-hero .label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(184,138,61,0.15);
+  border: 1px solid rgba(184,138,61,0.3);
+  border-radius: 30px;
+  font-size: 13px;
+  color: #d4a853;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.blog-hero h2 {
+  font-size: 48px;
+  margin-bottom: 16px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #fff 0%, #d4a853 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.blog-hero p {
+  font-size: 18px;
+  opacity: 0.7;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* 浮动装饰元素 */
+.hero-deco {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(184,138,61,0.08);
+  animation: decoFloat 15s ease-in-out infinite;
+}
+.hero-deco:nth-child(1) {
+  width: 300px; height: 300px;
+  top: -100px; right: 10%;
+  animation-delay: 0s;
+}
+.hero-deco:nth-child(2) {
+  width: 200px; height: 200px;
+  bottom: -50px; left: 5%;
+  animation-delay: -5s;
+}
+.hero-deco:nth-child(3) {
+  width: 150px; height: 150px;
+  top: 30%; right: 20%;
+  animation-delay: -10s;
+}
+@keyframes decoFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+
+/* 过滤栏 - 更精致 */
+.blog-filters {
+  padding: 40px 0;
+  background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%);
+  text-align: center;
+  position: sticky;
+  top: 70px;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.blog-filters .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.blog-filters button {
+  padding: 10px 24px;
+  border: 1.5px solid #e9ecef;
+  background: #fff;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 14px;
+  font-weight: 500;
+  color: #6c757d;
+  position: relative;
+  overflow: hidden;
+}
+.blog-filters button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+  z-index: 0;
+}
+.blog-filters button:hover,
+.blog-filters button.active {
+  color: #fff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(184,138,61,0.25);
+}
+.blog-filters button:hover::before,
+.blog-filters button.active::before {
+  width: 300px;
+  height: 300px;
+}
+.blog-filters button span {
+  position: relative;
+  z-index: 1;
+}
+
+/* 博客网格 - 瀑布流感 */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 32px;
+  padding: 60px 0 80px;
+}
+
+/* 博客卡片 - 玻璃拟态风格 */
+.blog-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+}
+.blog-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+.blog-card:hover {
+  transform: translateY(-12px) scale(1.01);
+  border-color: rgba(184,138,61,0.15);
+}
+.blog-card:hover::after {
+  opacity: 1;
+}
+
+/* 封面区域 - 渐变色 + 图标 */
+.blog-cover {
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+  padding: 0 30px;
+  text-align: center;
+  line-height: 1.5;
+}
+.blog-cover .cover-icon {
+  font-size: 64px;
+  margin-bottom: 12px;
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+}
+.blog-cover .cover-title {
+  position: relative;
+  z-index: 2;
+  font-size: 16px;
+  font-weight: 600;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.blog-cover .cover-pattern {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  opacity: 0.1;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* 分类渐变色 */
+.blog-card[data-category="政策解读"] .blog-cover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.blog-card[data-category="加拿大"] .blog-cover {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+.blog-card[data-category="欧洲移民"] .blog-cover {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+.blog-card[data-category="澳洲"] .blog-cover {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+.blog-card[data-category="客户故事"] .blog-cover {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+.blog-card[data-category="项目看法"] .blog-cover {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.blog-body {
+  padding: 28px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.blog-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  align-self: flex-start;
+  letter-spacing: 0.5px;
+}
+.blog-card[data-category="政策解读"] .blog-tag {
+  background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+  color: #764ba2;
+}
+.blog-card[data-category="加拿大"] .blog-tag {
+  background: linear-gradient(135deg, rgba(240,147,251,0.1), rgba(245,87,108,0.1));
+  color: #f5576c;
+}
+.blog-card[data-category="欧洲移民"] .blog-tag {
+  background: linear-gradient(135deg, rgba(79,172,254,0.1), rgba(0,242,254,0.1));
+  color: #00a8e8;
+}
+.blog-card[data-category="澳洲"] .blog-tag {
+  background: linear-gradient(135deg, rgba(67,233,123,0.1), rgba(56,249,215,0.1));
+  color: #00b894;
+}
+.blog-card[data-category="客户故事"] .blog-tag {
+  background: linear-gradient(135deg, rgba(250,112,154,0.1), rgba(254,225,64,0.1));
+  color: #e84393;
+}
+.blog-card[data-category="项目看法"] .blog-tag {
+  background: linear-gradient(135deg, rgba(168,237,234,0.2), rgba(254,214,227,0.2));
+  color: #00b894;
+}
+.blog-body h4 {
+  font-size: 19px;
+  color: #1a1a2e;
+  margin-bottom: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  transition: color 0.3s;
+}
+.blog-card:hover .blog-body h4 {
+  color: #b88a3d;
+}
+.blog-body p {
+  font-size: 14px;
+  color: #6c757d;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  flex: 1;
+}
+.blog-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #adb5bd;
+  border-top: 1px solid #f1f3f5;
+  padding-top: 16px;
+}
+.blog-meta .author {
+  font-weight: 600;
+  color: #495057;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.blog-meta .date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.blog-read-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  font-size: 12px;
+  color: #adb5bd;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* 博客详情页 */
+.blog-detail {
+  display: none;
+  padding: 60px 0 100px;
+  animation: fadeIn 0.6s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.blog-detail.active {
+  display: block;
+}
+.blog-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 50px;
+}
+.blog-detail-main {
+  background: #fff;
+  border-radius: 24px;
+  padding: 48px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.blog-detail-header {
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 2px solid #f8f9fa;
+}
+.blog-detail-header .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+.blog-detail-header h1 {
+  font-size: 32px;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+}
+.blog-detail-header .meta {
+  display: flex;
+  gap: 24px;
+  font-size: 14px;
+  color: #adb5bd;
+  flex-wrap: wrap;
+}
+.blog-detail-header .meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.blog-detail-content {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #495057;
+}
+.blog-detail-content p {
+  margin-bottom: 20px;
+}
+.blog-detail-content strong {
+  color: #1a1a2e;
+  font-weight: 700;
+}
+.blog-detail-content h3 {
+  font-size: 22px;
+  color: #1a1a2e;
+  margin: 32px 0 16px;
+  font-weight: 700;
+  padding-left: 16px;
+  border-left: 4px solid var(--primary);
+}
+.blog-detail-content blockquote {
+  background: linear-gradient(135deg, #f8f9fa, #fff);
+  border-left: 4px solid var(--primary);
+  padding: 20px 24px;
+  margin: 24px 0;
+  border-radius: 0 12px 12px 0;
+  font-style: italic;
+  color: #495057;
+}
+.blog-detail-content ul {
+  margin: 16px 0;
+  padding-left: 24px;
+}
+.blog-detail-content ul li {
+  margin-bottom: 10px;
+  position: relative;
+}
+.blog-detail-content ul li::marker {
+  color: var(--primary);
+}
+
+/* 侧边栏 */
+.blog-detail-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.sidebar-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: transform 0.3s;
+}
+.sidebar-card:hover {
+  transform: translateY(-4px);
+}
+.sidebar-card h4 {
+  font-size: 17px;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sidebar-card ul {
+  list-style: none;
+}
+.sidebar-card li {
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f3f5;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+.sidebar-card li:last-child {
+  border-bottom: none;
+}
+.sidebar-card li:hover {
+  padding-left: 8px;
+}
+.sidebar-card a {
+  color: #495057;
+  text-decoration: none;
+  transition: 0.3s;
+  display: block;
+  font-weight: 500;
+  line-height: 1.6;
+}
+.sidebar-card a:hover {
+  color: var(--primary);
+}
+.sidebar-card .category-count {
+  float: right;
+  background: #f8f9fa;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  color: #adb5bd;
+  font-weight: 600;
+}
+
+/* 返回按钮 */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 28px;
+  transition: all 0.3s;
+  cursor: pointer;
+  padding: 10px 20px;
+  background: #fff;
+  border-radius: 30px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.back-btn:hover {
+  color: var(--primary-dark);
+  transform: translateX(-6px);
+  box-shadow: 0 4px 20px rgba(184,138,61,0.15);
+}
+
+/* CTA 卡片 */
+.sidebar-cta {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: #fff;
+  text-align: center;
+}
+.sidebar-cta p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.sidebar-cta .btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border: none;
+  padding: 14px;
+  font-weight: 600;
+}
+.sidebar-cta .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(184,138,61,0.3);
+}
+
+/* 滚动进入动画 */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  grid-column: 1 / -1;
+}
+.empty-state .icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.3;
+}
+.empty-state h3 {
+  font-size: 20px;
+  color: #adb5bd;
+  margin-bottom: 8px;
+}
+.empty-state p {
+  font-size: 14px;
+  color: #ced4da;
+}
+
+@media (max-width: 768px) {
+  .blog-hero { padding: 80px 0 60px; }
+  .blog-hero h2 { font-size: 32px; }
+  .blog-filters { position: relative; top: 0; }
+  .blog-grid { grid-template-columns: 1fr; gap: 24px; padding: 40px 0 60px; }
+  .blog-detail-layout { grid-template-columns: 1fr; }
+  .blog-detail-main { padding: 28px; border-radius: 20px; }
+  .blog-detail-header h1 { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 顶部横幅 -->
+<section class="blog-hero">
+  <div class="hero-deco"></div>
+  <div class="hero-deco"></div>
+  <div class="hero-deco"></div>
+  <div class="container">
+    <div class="label">✨ 环球移民博客</div>
+    <h2>探索移民世界</h2>
+    <p>深度客户案例 · 专业项目见解 · 一手移民资讯<br>让每一次移民决策都心中有数</p>
+  </div>
+</section>
+
+<!-- 导航栏 -->
+<div class="top-bar"><div class="container"><span>📞 <span id="site-phone">400-888-6688</span></span><span><a href="admin-login.html">🔐 管理后台</a></span></div></div>
+<header><div class="container"><div class="logo"><div class="logo-icon">G</div><div class="logo-text"><h1 id="site-name">环球移民</h1><span id="site-slogan">专业 · 高效 · 值得信赖</span></div></div><div class="menu-toggle" onclick="toggleMenu()">☰</div><nav id="main-nav"><ul><li><a href="index.html">首页</a></li><li><a href="services.html">服务项目</a></li><li><a href="cases.html">成功案例</a></li><li><a href="blog.html" class="active">移民博客</a></li><li><a href="about.html">关于我们</a></li><li><a href="contact.html">联系我们</a></li></ul></nav></div></header>
+
+<!-- 过滤栏 -->
+<div class="blog-filters">
+  <div class="container">
+    <button class="active" onclick="filterBlog('all')" data-filter="all"><span>全部</span></button>
+    <button onclick="filterBlog('政策解读')" data-filter="政策解读"><span>📋 政策解读</span></button>
+    <button onclick="filterBlog('加拿大')" data-filter="加拿大"><span>🍁 加拿大</span></button>
+    <button onclick="filterBlog('欧洲移民')" data-filter="欧洲移民"><span>🇪🇺 欧洲移民</span></button>
+    <button onclick="filterBlog('澳洲')" data-filter="澳洲"><span>🦘 澳洲</span></button>
+    <button onclick="filterBlog('客户故事')" data-filter="客户故事"><span>💬 客户故事</span></button>
+    <button onclick="filterBlog('项目看法')" data-filter="项目看法"><span>🔍 项目看法</span></button>
+  </div>
+</div>
+
+<!-- 博客列表 -->
+<div class="container" id="blog-list">
+  <div class="blog-grid" id="blog-grid"></div>
+</div>
+
+<!-- 博客详情 -->
+<div class="container blog-detail" id="blog-detail">
+  <a class="back-btn" onclick="showBlogList()"><span>←</span> 返回博客列表</a>
+  <div class="blog-detail-layout">
+    <div class="blog-detail-main">
+      <div class="blog-detail-header" id="blog-detail-header"></div>
+      <div class="blog-detail-content" id="blog-detail-content"></div>
+    </div>
+    <div class="blog-detail-sidebar">
+      <div class="sidebar-card">
+        <h4>🔥 热门文章</h4>
+        <ul id="sidebar-hot"></ul>
+      </div>
+      <div class="sidebar-card">
+        <h4>📂 文章分类</h4>
+        <ul id="sidebar-categories"></ul>
+      </div>
+      <div class="sidebar-card sidebar-cta">
+        <h4>💡 需要咨询？</h4>
+        <p>如果您对移民有任何疑问，欢迎随时联系我们的专业顾问团队。</p>
+        <a href="contact.html" class="btn">立即免费咨询</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 页脚 -->
+<footer><div class="container"><div class="footer-grid"><div class="footer-brand"><h3>环球移民</h3><p>专业的移民服务机构，15年经验，10,000+成功案例。</p></div><div class="footer-links"><h4>快速链接</h4><ul><li><a href="index.html">首页</a></li><li><a href="services.html">服务项目</a></li><li><a href="cases.html">成功案例</a></li><li><a href="blog.html">移民博客</a></li><li><a href="about.html">关于我们</a></li><li><a href="contact.html">联系我们</a></li></ul></div><div class="footer-links"><h4>热门服务</h4><ul><li><a href="services.html">美国移民</a></li><li><a href="services.html">加拿大移民</a></li><li><a href="services.html">澳洲移民</a></li><li><a href="services.html">欧洲移民</a></li><li><a href="services.html">签证服务</a></li></ul></div><div class="footer-contact"><h4>联系方式</h4><p>📞 <span id="footer-phone">400-888-6688</span></p><p>📧 <span id="footer-email">contact@aqyimin.com</span></p><p>📍 <span id="footer-address">北京市朝阳区建国路88号SOHO现代城</span></p></div></div><div class="footer-bottom" id="footer-copyright">© 2024 环球移民咨询有限公司 版权所有</div></div></footer>
+
+<script src="js/data.js"></script>
+<script>
+function toggleMenu() { document.getElementById('main-nav').classList.toggle('open'); }
+
+// 分类图标映射
+const categoryIcons = {
+  '政策解读': '📋',
+  '加拿大': '🍁',
+  '欧洲移民': '🇪🇺',
+  '澳洲': '🦘',
+  '客户故事': '💬',
+  '项目看法': '🔍'
+};
+
+// 分类封面图标映射
+const coverIcons = {
+  '政策解读': '📜',
+  '加拿大': '🏔️',
+  '欧洲移民': '🏰',
+  '澳洲': '🐨',
+  '客户故事': '⭐',
+  '项目看法': '📊'
+};
+
+function render() {
+  const data = loadData();
+  document.getElementById('site-name').textContent = data.site.name;
+  document.getElementById('site-slogan').textContent = data.site.slogan;
+  document.getElementById('site-phone').textContent = data.site.phone;
+  document.getElementById('footer-phone').textContent = data.site.phone;
+  document.getElementById('footer-email').textContent = data.site.email;
+  document.getElementById('footer-address').textContent = data.site.address;
+  document.getElementById('footer-copyright').textContent = data.site.copyright;
+  window.allBlog = data.blog;
+  filterBlog('all');
+  renderSidebar(data.blog);
+  initScrollReveal();
+}
+
+function estimateReadTime(content) {
+  const words = content.length / 2; // 中文字符估算
+  const minutes = Math.ceil(words / 300);
+  return minutes + ' 分钟阅读';
+}
+
+function filterBlog(tag) {
+  const posts = window.allBlog || [];
+  const filtered = tag === 'all' ? posts : posts.filter(b => b.category === tag);
+  const bg = document.getElementById('blog-grid');
+  
+  if (filtered.length === 0) {
+    bg.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">📭</div>
+        <h3>暂无该分类文章</h3>
+        <p>敬请期待，我们正在准备更多优质内容</p>
+      </div>
+    `;
+  } else {
+    bg.innerHTML = filtered.map((b, i) => {
+      const icon = coverIcons[b.category] || '📝';
+      const catIcon = categoryIcons[b.category] || '';
+      const readTime = estimateReadTime(b.content);
+      return `
+        <div class="blog-card reveal" data-category="${b.category}" onclick="showBlogDetail(${b.id})" style="transition-delay: ${i * 0.1}s">
+          <div class="blog-cover">
+            <div class="cover-pattern"></div>
+            <div>
+              <div class="cover-icon">${icon}</div>
+              <div class="cover-title">${b.title.substring(0, 20)}${b.title.length > 20 ? '...' : ''}</div>
+            </div>
+          </div>
+          <div class="blog-body">
+            <div class="blog-tag">${catIcon} ${b.category}</div>
+            <h4>${b.title}</h4>
+            <p>${b.summary}</p>
+            <div class="blog-meta">
+              <span class="author">👤 ${b.author}</span>
+              <span class="date">📅 ${b.date}</span>
+              <span class="blog-read-time">⏱️ ${readTime}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+  
+  // 更新按钮状态
+  document.querySelectorAll('.blog-filters button').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.dataset.filter === tag) btn.classList.add('active');
+  });
+  
+  // 重新触发动画
+  setTimeout(initScrollReveal, 100);
+}
+
+function showBlogDetail(id) {
+  const posts = window.allBlog || [];
+  const post = posts.find(b => b.id === id);
+  if (!post) return;
+
+  document.getElementById('blog-list').style.display = 'none';
+  document.querySelector('.blog-filters').style.display = 'none';
+  const detail = document.getElementById('blog-detail');
+  detail.classList.add('active');
+
+  document.getElementById('blog-detail-header').innerHTML = `
+    <div class="tag">${categoryIcons[post.category] || ''} ${post.category}</div>
+    <h1>${post.title}</h1>
+    <div class="meta">
+      <span>👤 ${post.author}</span>
+      <span>📅 ${post.date}</span>
+      <span>⏱️ ${estimateReadTime(post.content)}</span>
+    </div>
+  `;
+
+  // 更智能的内容渲染
+  const contentHtml = renderContent(post.content);
+  document.getElementById('blog-detail-content').innerHTML = contentHtml;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderContent(content) {
+  const paragraphs = content.split('\n\n');
+  return paragraphs.map(p => {
+    const trimmed = p.trim();
+    if (!trimmed) return '';
+    
+    // 检测标题行（以数字. 开头 或 以「」包裹）
+    if (/^\d+\./.test(trimmed) && trimmed.length < 50) {
+      return `<h3>${trimmed}</h3>`;
+    }
+    
+    // 检测引用（包含「」的段落）
+    if (trimmed.includes('「') && trimmed.includes('」')) {
+      return `<blockquote>${trimmed.replace(/\n/g, '<br>')}</blockquote>`;
+    }
+    
+    // 检测列表项（以 - 开头）
+    if (trimmed.startsWith('-') || trimmed.startsWith('•')) {
+      const items = trimmed.split('\n').filter(l => l.trim().startsWith('-') || l.trim().startsWith('•'));
+      if (items.length > 1) {
+        return '<ul>' + items.map(item => `<li>${item.trim().replace(/^[-•]\s*/, '')}</li>`).join('') + '</ul>';
+      }
+    }
+    
+    // 普通段落
+    return '<p>' + trimmed.replace(/\n/g, '<br>') + '</p>';
+  }).join('');
+}
+
+function showBlogList() {
+  document.getElementById('blog-list').style.display = 'block';
+  document.querySelector('.blog-filters').style.display = 'block';
+  document.getElementById('blog-detail').classList.remove('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(initScrollReveal, 100);
+}
+
+function renderSidebar(posts) {
+  // 热门文章
+  const hot = posts.slice(0, 5);
+  document.getElementById('sidebar-hot').innerHTML = hot.map((b, i) => `
+    <li><a href="javascript:void(0)" onclick="showBlogDetail(${b.id})"><span style="color:var(--primary);font-weight:700;margin-right:8px;">${String(i+1).padStart(2, '0')}</span>${b.title}</a></li>
+  `).join('');
+
+  // 分类统计
+  const cats = [...new Set(posts.map(b => b.category))];
+  document.getElementById('sidebar-categories').innerHTML = cats.map(c => {
+    const count = posts.filter(p => p.category === c).length;
+    const icon = categoryIcons[c] || '';
+    return `<li><a href="javascript:void(0)" onclick="filterBlog('${c}'); showBlogList();">${icon} ${c}<span class="category-count">${count}篇</span></a></li>`;
+  }).join('');
+}
+
+// 滚动进入动画
+function initScrollReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.classList.remove('visible');
+    observer.observe(el);
+  });
+}
+
+// Header 滚动效果
+window.addEventListener('scroll', () => {
+  document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+render();
+</script>
+</body>
+</html>

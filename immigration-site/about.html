@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>关于我们 - 环球移民</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.page-banner { background: linear-gradient(135deg, var(--secondary), var(--dark)); color: #fff; padding: 100px 0 80px; text-align: center; position: relative; overflow: hidden; }
+.page-banner::before { content:''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.02' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E"); }
+.page-banner .container { position: relative; z-index: 1; }
+.page-banner .label { display: inline-block; padding: 6px 16px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 30px; font-size: 13px; color: var(--primary-light); margin-bottom: 16px; letter-spacing: 0.5px; }
+.page-banner h2 { font-size: 40px; margin-bottom: 14px; font-weight: 700; letter-spacing: -0.3px; }
+.page-banner p { font-size: 16px; opacity: 0.7; max-width: 560px; margin: 0 auto; line-height: 1.7; }
+.about-section { padding: 80px 0; }
+.about-section .container { display: flex; align-items: center; gap: 60px; }
+.about-section:nth-child(even) .container { flex-direction: row-reverse; }
+.about-section:nth-child(even) { background: var(--light); }
+.about-img { flex: 1; min-height: 350px; border-radius: var(--radius); background: linear-gradient(135deg, var(--secondary), var(--dark)); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 80px; position: relative; overflow: hidden; box-shadow: var(--shadow-xl); }
+.about-img::before { content:''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E"); }
+.about-text { flex: 1; }
+.about-text h3 { font-size: 32px; color: var(--secondary); margin-bottom: 20px; font-weight: 700; }
+.about-text p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 15px; }
+.about-text p strong { color: var(--primary-dark); }
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; padding: 60px 0; }
+.team-card { background: var(--lighter); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); text-align: center; padding: 40px 24px; border: 1px solid var(--border); transition: var(--transition); }
+.team-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-xl); border-color: transparent; }
+.team-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-light)); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 30px; margin: 0 auto 20px; box-shadow: 0 8px 24px rgba(184,138,61,0.2); }
+.team-card h4 { font-size: 18px; color: var(--secondary); margin-bottom: 6px; font-weight: 600; }
+.team-card span { font-size: 13px; color: var(--primary); font-weight: 600; }
+.team-card p { font-size: 14px; color: var(--text-muted); margin-top: 12px; line-height: 1.6; }
+@media (max-width: 768px) {
+  .about-section .container, .about-section:nth-child(even) .container { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="top-bar"><div class="container"><span>📞 <span id="site-phone">400-888-6688</span></span><span><a href="admin-login.html">🔐 管理后台</a></span></div></div>
+<header><div class="container"><div class="logo"><div class="logo-icon">G</div><div class="logo-text"><h1 id="site-name">环球移民</h1><span id="site-slogan">专业 · 高效 · 值得信赖</span></div></div><div class="menu-toggle" onclick="toggleMenu()">☰</div><nav id="main-nav"><ul><li><a href="index.html">首页</a></li><li><a href="services.html">服务项目</a></li><li><a href="cases.html">成功案例</a></li><li><a href="blog.html">移民博客</a></li><li><a href="about.html" class="active">关于我们</a></li><li><a href="contact.html">联系我们</a></li></ul></nav></div></header>
+
+<section class="page-banner">
+  <div class="container">
+    <div class="label">ABOUT US</div>
+    <h2>关于我们</h2>
+    <p>15年专注移民服务，值得信赖的合作伙伴</p>
+  </div>
+</section>
+
+<section class="about-section"><div class="container">
+  <div class="about-img">🏢</div>
+  <div class="about-text">
+    <h3 id="about-title">关于环球移民</h3>
+    <p id="about-p1">环球移民成立于2009年，是一家专注于移民、留学、海外投资的综合性服务机构。我们拥有资深移民律师团队、持牌顾问团队，与全球多个国家的移民局、律师事务所建立了长期合作关系。</p>
+    <p id="about-p2">我们始终坚持"客户至上"的服务理念，为每一位客户提供量身定制的移民方案，确保高成功率和高满意度。15年来，我们已成功帮助超过10,000个家庭实现了移民梦想。</p>
+  </div>
+</div></section>
+
+<section class="about-section" style="background:var(--light);"><div class="container">
+  <div class="about-text">
+    <h3>我们的优势</h3>
+    <p><strong>资深团队</strong> — 核心团队成员平均从业经验超过10年，深谙各国移民政策和申请流程。</p>
+    <p><strong>高成功率</strong> — 凭借专业的方案和细致的材料准备，我们的签证通过率高达98%以上。</p>
+    <p><strong>全程服务</strong> — 从前期评估到最终登陆，提供一站式全流程服务，让客户无后顾之忧。</p>
+    <p><strong>透明收费</strong> — 所有费用明码标价，无隐形消费，合同保障客户权益。</p>
+  </div>
+  <div class="about-img">🌟</div>
+</div></section>
+
+<section class="about-section"><div class="container">
+  <div class="about-img">🤝</div>
+  <div class="about-text">
+    <h3>我们的承诺</h3>
+    <p>我们深知移民是人生中的重大决定，因此我们承诺：</p>
+    <p>✓ 真实评估 — 不夸大承诺，如实评估每位客户的移民可能性</p>
+    <p>✓ 专业方案 — 根据客户具体情况量身定制最优方案</p>
+    <p>✓ 高效办理 — 材料准备、递交全程跟踪，确保时效</p>
+    <p>✓ 售后保障 — 获批后提供完善的安家、后续服务</p>
+  </div>
+</div></section>
+
+<section style="background:var(--light); padding:60px 0;"><div class="container">
+  <div class="section-title"><h3>核心团队</h3><p>专业团队，为您保驾护航</p><div class="line"></div></div>
+  <div class="team-grid">
+    <div class="team-card"><div class="team-avatar">👤</div><h4>王建国</h4><span>创始人 / 首席移民顾问</span><p>20年移民行业经验，资深移民律师</p></div>
+    <div class="team-card"><div class="team-avatar">👤</div><h4>李雪梅</h4><span>美国移民总监</span><p>专注美国移民15年，EB-1A/NIW专家</p></div>
+    <div class="team-card"><div class="team-avatar">👤</div><h4>张伟</h4><span>加拿大移民总监</span><p>加拿大持牌移民顾问，EE专家</p></div>
+    <div class="team-card"><div class="team-avatar">👤</div><h4>陈丽</h4><span>欧洲移民总监</span><p>精通希腊、葡萄牙、西班牙移民政策</p></div>
+  </div>
+</div></section>
+
+<footer><div class="container"><div class="footer-grid"><div class="footer-brand"><h3>环球移民</h3><p>专业的移民服务机构，15年经验，10,000+成功案例。</p></div><div class="footer-links"><h4>快速链接</h4><ul><li><a href="index.html">首页</a></li><li><a href="services.html">服务项目</a></li><li><a href="cases.html">成功案例</a></li><li><a href="about.html">关于我们</a></li><li><a href="contact.html">联系我们</a></li></ul></div><div class="footer-links"><h4>热门服务</h4><ul><li><a href="#">美国移民</a></li><li><a href="#">加拿大移民</a></li><li><a href="#">澳洲移民</a></li><li><a href="#">欧洲移民</a></li><li><a href="#">签证服务</a></li></ul></div><div class="footer-contact"><h4>联系方式</h4><p>📞 <span id="footer-phone">400-888-6688</span></p><p>📧 <span id="footer-email">contact@aqyimin.com</span></p><p>📍 <span id="footer-address">北京市朝阳区建国路88号SOHO现代城</span></p></div></div><div class="footer-bottom" id="footer-copyright">© 2024 环球移民咨询有限公司 版权所有</div></div></footer>
+
+<script src="js/data.js"></script>
+<script>
+function toggleMenu() { document.getElementById('main-nav').classList.toggle('open'); }
+function render() {
+  const data = loadData();
+  document.getElementById('site-name').textContent = data.site.name;
+  document.getElementById('site-slogan').textContent = data.site.slogan;
+  document.getElementById('site-phone').textContent = data.site.phone;
+  document.getElementById('footer-phone').textContent = data.site.phone;
+  document.getElementById('footer-email').textContent = data.site.email;
+  document.getElementById('footer-address').textContent = data.site.address;
+  document.getElementById('footer-copyright').textContent = data.site.copyright;
+  document.getElementById('about-title').textContent = data.about.title;
+  document.getElementById('about-p1').textContent = data.about.content.split('\n')[0];
+}
+render();
+</script>
+</body>
+</html>
