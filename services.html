@@ -59,11 +59,8 @@ function render() {
   const sd = document.getElementById('services-detail');
   const details = [
     { title: "美国移民", items: ["EB-1A 杰出人才移民", "NIW 国家利益豁免", "EB-5 投资移民", "L-1 跨国公司高管", "E-2 条约投资者签证"], img: "🇺🇸" },
-    { title: "加拿大移民", items: ["联邦技术移民 (EE)", "省提名计划 (PNP)", "创业移民 (SUV)", "自雇移民", "保姆移民试点"], img: "🇨🇦" },
-    { title: "澳洲移民", items: ["189 独立技术移民", "190 州担保移民", "491 偏远地区担保", "雇主担保移民", "全球人才签证 (GTI)"], img: "🇦🇺" },
     { title: "欧洲移民", items: ["希腊购房移民 (25万欧元)", "葡萄牙基金移民 (50万欧元)", "西班牙非盈利居留", "马耳他投资移民", "爱尔兰投资移民"], img: "🇪🇺" },
-    { title: "签证服务", items: ["美国商务/旅游签证", "加拿大旅游签证", "申根签证", "英国签证", "澳洲旅游签证"], img: "🛂" },
-    { title: "留学规划", items: ["美国名校申请", "英国G5申请", "加拿大留学", "澳洲八大申请", "语言培训 + 签证办理"], img: "🎓" }
+    { title: "投资入籍", items: ["加勒比投资入籍", "瓦努阿图投资入籍", "土耳其投资入籍", "圣多美投资入籍"], img: "🛂" }
   ];
   sd.innerHTML = details.map((d, i) => `
     <section class="service-detail" style="background:${i%2===0?'#fff':'var(--light)'};">
