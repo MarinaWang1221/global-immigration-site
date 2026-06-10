@@ -1,13 +1,13 @@
 // ===== Data Management (localStorage) =====
 const DEFAULT_DATA = {
   site: {
-    name: "环球移民",
+    name: "移昇海外",
     slogan: "专业 · 高效 · 值得信赖",
-    phone: "400-888-6688",
-    email: "contact@aqyimin.com",
-    address: "北京市朝阳区建国路88号SOHO现代城",
-    wechat: "aqyimin",
-    copyright: "© 2024 环球移民咨询有限公司 版权所有"
+    phone: "400-888-4265",
+    email: "407133051@qq.com",
+    address: "上海市静安区北京西路968号7楼",
+    wechat: "wangjingting9012",
+    copyright: "© 上海奕昇因私出入境服务有限公司 版权所有"
   },
   hero: {
     title: "专业移民服务，\n开启全新人生",
